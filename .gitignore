@@ -1,0 +1,7 @@
+# .gitignore
+
+logs
+*.log
+npm-debuf.log*
+
+node_modules/
