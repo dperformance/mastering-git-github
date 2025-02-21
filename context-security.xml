@@ -1,0 +1,37 @@
+<security:http pattern="/css/**" scurity="none"/>
+<security:http pattern="/html/**" scurity="none"/>
+<security:http pattern="/images/**" scurity="none"/>
+<security:http pattern="/js/**" scurity="none"/>
+<security:http pattern="/resource/**" scurity="none"/>
+<security:http pattern="/tims_design/**" scurity="none"/>
+<security:http pattern="/botdetectcaptcha**" scurity="none"/>
+<security:http pattern="\A/WEB-INF/jsp/.*/Z" request-matcher="regex" scurity="none"/>
+<security:http pattern="/ssoagent/logonService.jsp/**" scurity="none"/>
+
+<egov-security:config id = "securityConfig"
+    loginUrl = "/econHome/main.do"
+    logoutSuccessUrl="/"
+    loginFailureUrl="/econHome/main.do?error=1"
+    accessDeniedUrl="/sec/ram/accessDenied.do"
+
+    dataSource="egov.dataSource"
+
+    jdbcUsersByUsernameQuery="SELECT * FROM USER"
+
+    jdbcAuthoritiesByUsernameQuery="Select * FROM USER"
+    jdbcMapClass = "egovframework.let.uat.uia.service.impl.EgovSessionMapping"
+    requestMatcherType="regex"
+    hash="plaintext"
+    hashBase64="false"
+    concurrentMaxSessions="3"
+    concurrentExpiredUrl="/"
+    defaultTargetUrl="/econMain/checkMemberInfo.do"
+    />
+
+    <bean id ="webInvocationPrivilegeEvaluator" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+        <constructor-arg ref="filterSecurityInterceptor"/>
+    </bean>
+
+    <egov-security:initializer id="initializer" supportMethod="false" supportPointcut="false" />
+
+    <bean id ="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurittyExpressionHandler" />
